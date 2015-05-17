@@ -9,21 +9,15 @@ app = Flask(__name__)
 def main():
 
     if request.method == 'POST':
-        p_time2=request.form['time2']
-        p_des_ip=request.form['des_ip']
-        p_user=request.form['user']
-        p_pw=request.form['pw']
+        p_time2=request.form['date']
 
-        proc = subprocess.Popen(["echo 'user:%s' > data" % p_user, ""], stdout=subprocess.PIPE, shell=True)
-        proc.communicate()
-        proc = subprocess.Popen(["echo 'password:%s' >> data" % p_pw, ""], stdout=subprocess.PIPE, shell=True)
-        proc.communicate()
-        proc = subprocess.Popen(["echo 'ip:%s' >> data" % p_des_ip, ""], stdout=subprocess.PIPE, shell=True)
-        proc.communicate()
-        proc = subprocess.Popen(["./get_data -t", ""], stdout=subprocess.PIPE, shell=True)
+        proc = subprocess.Popen(["echo '0616' | sudo -S date --set '%s' " % p_time2, ""], stdout=subprocess.PIPE, shell=True)
         proc.communicate()
 
     ip = request.remote_addr
+
+    proc = subprocess.Popen(['date','+ %Y/%m/%d-%H:%M'], stdout=subprocess.PIPE)
+    (time1, err) = proc.communicate()
 
     proc = subprocess.Popen(['./get_data','-u'], stdout=subprocess.PIPE)
     (user, err) = proc.communicate()
@@ -40,7 +34,7 @@ def main():
 
     templateData = {
         'ip': ip,
-        'time2': time1,
+        'time1': time1,
         'user': user,
         'pw' : pw,
         'message': message,
