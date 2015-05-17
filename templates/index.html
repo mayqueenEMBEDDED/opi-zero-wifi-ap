@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>MayQueen RD001-1A Page</title>
+		<meta name="author" content="Wig Cheng">
+
+    <SCRIPT LANGUAGE="JavaScript">
+
+    var timerID = null;
+    var timerRunning = false;
+
+    function stopclock (){
+        if(timerRunning);
+            clearTimeout(timerID);
+        timerRunning = false;
+    }
+
+    function startclock () {
+        stopclock();
+        gettheDate();
+        showtime();
+    }
+
+    function gettheDate() {
+        var monthes = ["1", "2", "3", "4", "5", "6",
+                        "7", "8", "9", "10", "11", "12"];
+        Todays = new Date();
+
+        var hours = Todays.getHours();
+        var minutes = Todays.getMinutes();
+
+
+        TheDate = (Todays.getYear() + 1900) + "-" + monthes[Todays.getMonth()] + "-" + Todays.getDate() + " " + hours + ":" + minutes
+        document.clock.date.value = TheDate;
+    }
+
+    function showtime () {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        var timeValue = ((hours < 10) ? "0" : "") + hours;
+
+        timeValue += ((minutes < 10) ? ":0" : ":") + minutes;
+        //timeValue += ((seconds < 10) ? ":0" : ":") + seconds;
+
+        document.clock.face.value = timeValue;
+        window.status = timeValue;
+        timerID = setTimeout("showtime()",1000);
+        timerRunning = true;
+    }
+
+    </SCRIPT>
+
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" />
+	</head>
+
+	<body onLoad="startclock()" BGCOLOR="#4babcf">
+ 
+    <h3><strong>無線網路</strong></h3>
+    <table class="table">
+    <tbody>
+        <tr>
+            <td>主機位址</td>
+            <td>192.168.42.1</td>
+        </tr>
+        <tr>
+            <td>網路模式</td>
+            <td>Wifi AP基地台</td>
+        </tr>
+        <tr>
+            <td>客戶位址</td>
+            <td>{{ip}}</td>
+        </tr>
+        <tr>
+            <td>連線名稱</td>
+            <td>RaspberryPiFi</td>
+        </tr>
+        <tr>
+            <td>系統時間</td>
+            <td>{{time1}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>已連線裝置列表</h4>
+    {% if message %}
+        {% for row in message %} 
+        {{ row }}<br>
+        {% endfor %}
+    {% endif %}
+
+        <form name="clock" onSubmit="0" action="/" method="POST">
+            輸入時間: <input class="date_field" type=text name="date" value="Require JavaScript support!"></input><br>
+            連線位址: <input type="text" name="des_ip" value={{des_ip}}></input></br>
+            連線帳號: <input type="text" name="user" value={{user}}></input></br>
+            連線密碼: <input type="text" name="pw" value={{pw}}></input></br>
+           <input type="submit" name="submit" class ="btn-danger" value="更新設定"></br>
+        </form>
+
+    </body>
+	<script src="/static/bootstrap/js/bootstrap.js"></script>
+</html>

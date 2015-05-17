@@ -1,0 +1,39 @@
+body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        background-image: url('../img/bg.png');
+        background-size: 100%;
+        width: 100%;
+        background-attachment: fixed;
+}
+
+.sidebar{
+      width: 30%;
+      float: left;
+      height: 250px;
+      color: white;
+      background: rgba(0,0,0,0.3);
+}
+
+.large_button {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+#on{
+      background-color: #fbf09a;
+      color: rgb(223, 204, 103);
+      text-shadow: 1px 1px 10px #5C4E17;
+}
+
+#off {
+      background-color: #1e170b;
+      top: 10%;
+      color: rgb(83, 71, 48);
+      text-shadow: 1px 1px 10px #000000;
+}

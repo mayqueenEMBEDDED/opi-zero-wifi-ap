@@ -1,0 +1,33 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	background-image: url('../img/bg.png');
+	background-size: 100%;
+	width: 100%;
+	visibility: hidden;
+}
+
+.banner {
+	background-image: url('../img/banner.png');
+	height: 34px;
+}
+
+.footer {
+	background-image: url('../img/footer.png');
+	height: 103px;
+	bottom: 0;
+	width: 100%;
+	position: absolute;
+	background-size: 100% 100%;
+}
+
+.logo{
+	margin-top: 20px;
+}
+.slogan{
+	margin-top: -2px;
+}
+.content{
+	margin-top: 50px;
+}

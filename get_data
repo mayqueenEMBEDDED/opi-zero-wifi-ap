@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ "$1" == "-u" ]]; then
+    cat data | grep "user" |awk -F: '{print $2}'
+elif  [[ "$1" == "-p" ]]; then
+    cat data | grep "password" |awk -F: '{print $2}'
+elif  [[ "$1" == "-l" ]]; then
+    cat data | grep "ip" |awk -F: '{print $2}'
+elif  [[ "$1" == "-t" ]]; then
+    user=$(cat data | grep "user" |awk -F: '{print $2}')
+    pw=$(cat data | grep "password" |awk -F: '{print $2}')
+    ip=$(cat data | grep "ip" |awk -F: '{print $2}')
+    cmd=$(sshpass -p "$pw" ssh -o StrictHostKeyChecking=no "$user"@"$ip" 'date')
+    sudo date --set "$cmd"
+fi
