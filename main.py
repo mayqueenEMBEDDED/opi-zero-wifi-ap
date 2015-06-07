@@ -11,7 +11,7 @@ def main():
     if request.method == 'POST':
         p_time2=request.form['date']
 
-        proc = subprocess.Popen(["echo '0616' | sudo -S date --set '%s' " % p_time2, ""], stdout=subprocess.PIPE, shell=True)
+        proc = subprocess.Popen(["echo 'raspberry' | sudo -S date --set '%s' " % p_time2, ""], stdout=subprocess.PIPE, shell=True)
         proc.communicate()
 
     ip = request.remote_addr
