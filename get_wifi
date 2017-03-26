@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ "$1" == "-wiface" ]]; then
+  echo "$(ifconfig | grep "wlx" | head -1 | awk '{print $1}')"
+elif [[ "$1" == "-ssid_get" ]]; then
+  echo "$(cat /etc/ap-hotspot.conf | grep "ssid" | head -1 | awk -F= '{print $2}')"
+elif [[ "$1" == "-pw_get" ]]; then
+  echo "$(cat /etc/ap-hotspot.conf | grep "wpa_passphrase" | head -1 | awk -F= '{print $2}')"
+elif [[ "$1" == "-ethip_get" ]]; then
+  echo "$(ifconfig | grep "inet addr" | head -1 | awk '{print $2}' | awk -F: '{print $2}')"
+fi

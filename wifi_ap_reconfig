@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ssid=$(cat wifi_config | awk '{print $1}')
+pw=$(cat wifi_config | awk '{print $2}')
+pw_again=$(cat wifi_config | awk '{print $3}')
+wl_iface=$(ifconfig | grep "wlx" | head -1 | awk '{print $1}')
+
+if [[ "$pw" == "$pw_again" ]]; then
+	ap-hotspot stop
+	sudo rm /tmp/hotspot.pid
+	(echo eth0; echo $wl_iface; echo $ssid; echo $pw_again;) | ap-hotspot configure
+	sleep 0.5
+	ap-hotspot start
+	sleep 0.5
+	reboot
+fi
